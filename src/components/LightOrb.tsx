@@ -10,6 +10,10 @@ const GRADIENT = "linear-gradient(255deg, rgb(250, 203, 14), rgb(240, 107, 168) 
 type Target = { x: number; y: number; k: number };
 const DEFAULT: Target = { x: 0, y: 0, k: 1 };
 
+/** Full orb diameter at scale 1: must match the CSS size below so the whole circle can be kept on screen. */
+const baseSize = (vw: number, vh: number) => Math.min(vw * 0.92, vh * 0.88, 780);
+const clamp = (v: number, lim: number) => Math.max(-lim, Math.min(lim, v));
+
 function targetFor(sections: HTMLElement[], vh: number): Target {
   const mid = vh * 0.5;
   let cur: HTMLElement | undefined;
@@ -40,9 +44,13 @@ export function LightOrb() {
     const update = () => {
       const vw = window.innerWidth, vh = window.innerHeight;
       const t = targetFor(sections, vh);
-      tx.set(t.x * vw);
-      ty.set(t.y * vh);
-      tk.set(vw < 700 ? Math.min(1, t.k + 0.15) : t.k);
+      const k = vw < 700 ? Math.min(1, t.k + 0.15) : t.k;
+      const half = (baseSize(vw, vh) * k) / 2;
+      // keep the whole orb inside the viewport (with room for the live shake); a side section pushes it as far over as fits
+      const roomX = Math.max(0, vw / 2 - half * 1.12 - 30), roomY = Math.max(0, vh / 2 - half * 1.12 - 30);
+      tx.set(clamp(t.x * vw * 1.8, roomX));
+      ty.set(clamp(t.y * vh, roomY));
+      tk.set(k);
     };
     update();
     const unsub = scrollY.on("change", update);
@@ -80,7 +88,7 @@ export function LightOrb() {
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0 flex items-center justify-center overflow-hidden" style={{ perspective: 1200 }}>
       <motion.div
         style={{ x, y, scale, rotateZ: jr, rotateY: lean, rotateX: tilt, transformStyle: "preserve-3d" }}
-        className="relative h-[min(92vw,780px)] w-[min(92vw,780px)] will-change-transform"
+        className="relative h-[min(92vw,88svh,780px)] w-[min(92vw,88svh,780px)] will-change-transform"
       >
         {/* soft glow halo */}
         <div className="absolute -inset-[8%] rounded-full opacity-40 blur-[70px]" style={{ background: GRADIENT }} />
