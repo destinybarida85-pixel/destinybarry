@@ -1,0 +1,56 @@
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
+import { SITE } from "@/lib/content";
+
+const montserrat = localFont({
+  src: "../../public/fonts/Montserrat-VariableFont_wght.ttf",
+  variable: "--font-montserrat",
+  weight: "100 900",
+  display: "swap",
+});
+const lora = localFont({
+  src: [
+    { path: "../../public/fonts/Lora-VariableFont_wght.ttf", style: "normal", weight: "400 700" },
+    { path: "../../public/fonts/Lora-Italic-VariableFont_wght.ttf", style: "italic", weight: "400 700" },
+  ],
+  variable: "--font-lora",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: "Destiny Barry | AI-Powered Web Design & Growth for Local Businesses",
+  description:
+    "Websites that bring you customers. Destiny Barry designs high-converting websites with AI chat assistants, lead capture, booking and automated follow-up for local businesses in the US and Canada.",
+  openGraph: {
+    title: "Your website should bring you customers.",
+    description: "AI-powered web design and growth systems for local businesses in the US and Canada.",
+    url: SITE.url,
+    siteName: "Destiny Barry",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: "Destiny Barry", description: "Your website should bring you customers." },
+};
+
+export const viewport: Viewport = { themeColor: "#E5E4E0", width: "device-width", initialScale: 1 };
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Destiny Barry",
+  url: SITE.url,
+  areaServed: ["United States", "Canada"],
+  description: "AI-powered web design and growth agency for local businesses.",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${montserrat.variable} ${lora.variable}`}>
+      <body className="font-serif">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        {children}
+      </body>
+    </html>
+  );
+}
