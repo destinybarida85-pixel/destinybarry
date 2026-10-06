@@ -128,3 +128,18 @@ export const PACKAGES = [
 ] as const;
 
 export const BUSINESS_TYPES = ["Home services", "Dental / health", "Salon / beauty", "Legal / finance", "Auto / trades", "Restaurant / events", "Other"];
+
+export const CLIENTS = [
+  { name: "NorthPeak Roofing", file: "northpeak" }, { name: "Summit HVAC", file: "summit" }, { name: "Everline Plumbing", file: "everline" },
+  { name: "Oakridge Dental", file: "oakridge" }, { name: "Apex Exteriors", file: "apex" }, { name: "BlueStone Roofing", file: "bluestone" },
+  { name: "Haven Med Spa", file: "haven-medspa" }, { name: "PrimeFlow HVAC", file: "primeflow" }, { name: "Westbrook Landscaping", file: "westbrook" },
+  { name: "ClearPath Dental", file: "clearpath" }, { name: "Ridgeway Roofing", file: "ridgeway" }, { name: "UrbanCraft Remodeling", file: "urbancraft" },
+  { name: "NorthStar Exteriors", file: "northstar" }, { name: "Elevate Roofing Co.", file: "elevate" }, { name: "Beacon Home Services", file: "beacon" },
+  { name: "TrueLine Plumbing", file: "trueline" }, { name: "Sterling HVAC", file: "sterling" }, { name: "Greenfield Landscapes", file: "greenfield" },
+  { name: "Atlas Roofing Group", file: "atlas" }, { name: "Horizon Dental", file: "horizon" }, { name: "PeakPoint Construction", file: "peakpoint" },
+  { name: "BrightHouse Exteriors", file: "brighthouse" }, { name: "ProShield Roofing", file: "proshield" }, { name: "Nova Home Services", file: "nova" },
+  { name: "CedarStone Remodeling", file: "cedarstone" }, { name: "ClearView Roofing", file: "clearview" }, { name: "MetroFlow Plumbing", file: "metroflow" },
+  { name: "SummitEdge Construction", file: "summitedge" }, { name: "PrimeRoof Solutions", file: "primeroof" }, { name: "Evergreen Home Co.", file: "evergreen" },
+  { name: "Crestline HVAC", file: "crestline" }, { name: "Oak & Stone Landscaping", file: "oak-stone" }, { name: "Vertex Exteriors", file: "vertex" },
+  { name: "Haven Home Services", file: "haven-home" }, { name: "IronPeak Roofing", file: "ironpeak" },
+] as const;
