@@ -9,7 +9,7 @@ export function Services() {
   const { openMockup } = useMockup();
   const [open, setOpen] = useState<string>(SERVICES[0].id);
   return (
-    <section id="services" className="border-t border-line">
+    <section id="services" data-orb="0.3,-0.05,0.75" className="border-t border-line">
       <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
         <SectionHead eyebrow="Services" title="Everything your website needs to win customers." />
         <div className="mt-14 border-t border-ink">

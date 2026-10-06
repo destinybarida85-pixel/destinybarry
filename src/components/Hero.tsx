@@ -39,7 +39,7 @@ export function Hero() {
   const { x: px, y: py } = usePointer();
 
   return (
-    <section id="top" className="relative overflow-hidden">
+    <section id="top" data-orb="0,0,1" className="relative overflow-hidden">
       {/* floating website mockups, scattered around the light */}
       <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden>
         <Float className="left-[3%] top-[22%] w-[230px]" depth={1.1} rotate={-4} px={px} py={py}>

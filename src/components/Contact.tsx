@@ -5,7 +5,7 @@ import { SITE } from "@/lib/content";
 
 export function Contact() {
   return (
-    <section id="contact" className="border-t border-line">
+    <section id="contact" data-orb="-0.3,0,0.8" className="border-t border-line">
       <div className="mx-auto grid max-w-[1400px] gap-12 px-5 py-20 sm:px-10 lg:grid-cols-[1fr_620px] lg:gap-20 lg:py-28">
         <div>
           <SectionHead eyebrow="Contact" title="Let's talk about your business." />

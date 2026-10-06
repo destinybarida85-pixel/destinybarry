@@ -16,7 +16,7 @@ export function Engine() {
 
   const cur = ENGINE[sel];
   return (
-    <section id="engine" className="border-t border-line">
+    <section id="engine" data-orb="-0.3,-0.1,0.75" className="border-t border-line">
       <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
         <SectionHead eyebrow="The AI client engine" title="One connected system, from first click to repeat customer." />
 

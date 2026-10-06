@@ -25,7 +25,7 @@ export function Portfolio() {
   const [open, setOpen] = useState<string | null>(null);
   const list = CASES.filter((c) => f === "All" || c.industry === f);
   return (
-    <section id="work" className="border-t border-line">
+    <section id="work" data-orb="-0.32,-0.05,0.75" className="border-t border-line">
       <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
         <SectionHead eyebrow="Portfolio & case studies" title="Websites that earn their keep." />
         <Reveal className="mt-10 flex flex-wrap gap-2" delay={0.1}>

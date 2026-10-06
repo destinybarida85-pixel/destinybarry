@@ -6,7 +6,7 @@ import { useMockup } from "./MockupContext";
 export function Packages() {
   const { openMockup } = useMockup();
   return (
-    <section id="packages" className="border-t border-line">
+    <section id="packages" data-orb="0.33,-0.25,0.7" className="border-t border-line">
       <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
         <SectionHead eyebrow="Packages" title="Simple packages. Clear outcomes." />
         <div className="mt-14 grid gap-6 lg:grid-cols-3">

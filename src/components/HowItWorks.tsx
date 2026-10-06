@@ -11,7 +11,7 @@ export function HowItWorks() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 60%"] });
   const h = useSpring(scrollYProgress, { stiffness: 90, damping: 25 });
   return (
-    <section id="how" className="border-t border-line">
+    <section id="how" data-orb="0.3,-0.2,0.7" className="border-t border-line">
       <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
         <SectionHead eyebrow="How it works" title="From free mockup to a website that works for you." />
         <div ref={ref} className="relative mt-14 grid gap-10 lg:grid-cols-4 lg:gap-8">

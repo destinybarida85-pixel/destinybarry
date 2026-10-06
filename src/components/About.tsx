@@ -9,7 +9,7 @@ export function About() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
   return (
-    <section id="about" className="border-t border-line">
+    <section id="about" data-orb="0.05,0.2,0.85" className="border-t border-line">
       <div ref={ref} className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 sm:px-10 lg:grid-cols-[420px_1fr] lg:gap-20 lg:py-28">
         <Reveal>
           <div className="relative mx-auto w-full max-w-[420px]">

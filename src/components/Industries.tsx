@@ -10,7 +10,7 @@ export function Industries() {
   const [id, setId] = useState<string>(INDUSTRIES[0].id);
   const cur = INDUSTRIES.find((i) => i.id === id)!;
   return (
-    <section id="industries" className="border-t border-line">
+    <section id="industries" data-orb="0.32,0.05,0.8" className="border-t border-line">
       <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
         <SectionHead eyebrow="Industries" title="Built for businesses that win on local trust." />
         <div className="mt-14 grid gap-10 lg:grid-cols-[360px_1fr]">
