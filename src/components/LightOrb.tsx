@@ -5,26 +5,19 @@ import { usePointer } from "@/lib/useParallax";
 
 const GRADIENT = "linear-gradient(255deg, rgb(250, 203, 14), rgb(240, 107, 168) 30%, rgb(120, 186, 230) 65%, rgb(255, 255, 255))";
 
-/** Scroll journey measured in viewport-heights: centre → right → left → centre, then repeats. */
-const STOPS = [
-  { s: 0, x: 0, y: 0, k: 1 },
-  { s: 0.9, x: 1, y: 0.06, k: 0.86 },
-  { s: 2.0, x: -1, y: -0.05, k: 0.9 },
-  { s: 3.2, x: 0, y: 0, k: 1 },
-];
-const PERIOD = STOPS[STOPS.length - 1].s;
-const smooth = (t: number) => t * t * (3 - 2 * t);
+/** Each section declares where the orb should sit while it is on screen: data-orb="x,y,scale"
+ *  (x = fraction of viewport width from centre, y = fraction of viewport height, scale = size multiplier). */
+type Target = { x: number; y: number; k: number };
+const DEFAULT: Target = { x: 0, y: 0, k: 1 };
 
-function path(scrollY: number, vh: number) {
-  const s = (scrollY / vh) % PERIOD;
-  for (let i = 0; i < STOPS.length - 1; i++) {
-    const a = STOPS[i], b = STOPS[i + 1];
-    if (s >= a.s && s <= b.s) {
-      const t = smooth((s - a.s) / (b.s - a.s));
-      return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, k: a.k + (b.k - a.k) * t };
-    }
-  }
-  return STOPS[0];
+function targetFor(sections: HTMLElement[], vh: number): Target {
+  const mid = vh * 0.5;
+  let cur: HTMLElement | undefined;
+  for (const el of sections) { if (el.getBoundingClientRect().top <= mid) cur = el; else break; }
+  const raw = cur?.dataset.orb;
+  if (!raw) return DEFAULT;
+  const [x, y, k] = raw.split(",").map(Number);
+  return { x: x || 0, y: y || 0, k: k || 1 };
 }
 
 export function LightOrb() {
@@ -43,13 +36,13 @@ export function LightOrb() {
   const jrx = useMotionValue(0), jry = useMotionValue(0), jk = useMotionValue(1);
 
   useEffect(() => {
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-orb]"));
     const update = () => {
       const vw = window.innerWidth, vh = window.innerHeight;
-      const p = path(scrollY.get(), vh);
-      const amp = vw < 700 ? 0.3 : 0.27;
-      tx.set(p.x * vw * amp);
-      ty.set(p.y * vh);
-      tk.set(p.k);
+      const t = targetFor(sections, vh);
+      tx.set(t.x * vw);
+      ty.set(t.y * vh);
+      tk.set(vw < 700 ? Math.min(1, t.k + 0.15) : t.k);
     };
     update();
     const unsub = scrollY.on("change", update);

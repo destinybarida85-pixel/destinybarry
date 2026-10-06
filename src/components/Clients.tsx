@@ -102,7 +102,7 @@ function Field() {
 export function Clients() {
   const row = [...CLIENTS, ...CLIENTS];
   return (
-    <section id="clients" className="relative z-[1] border-t border-line">
+    <section id="clients" data-orb="0.3,-0.12,0.75" className="relative z-[1] border-t border-line">
       <div className="mx-auto max-w-[1400px] px-5 pt-20 sm:px-10 lg:pt-28">
         <Reveal><div className="eyebrow">Trusted by</div></Reveal>
         <Reveal delay={0.08}>

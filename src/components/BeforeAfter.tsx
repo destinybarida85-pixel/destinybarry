@@ -37,7 +37,7 @@ export function BeforeAfter() {
   }, []);
 
   return (
-    <section id="work-preview" className="border-t border-line">
+    <section id="work-preview" data-orb="0.33,-0.2,0.7" className="border-t border-line">
       <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
         <SectionHead eyebrow="Before / After" title="Don't just redesign the website. Redesign the customer journey." />
         <Reveal className="mt-10 flex flex-wrap gap-2" delay={0.1}>
