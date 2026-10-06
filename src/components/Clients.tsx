@@ -8,10 +8,16 @@ import { Reveal } from "./Reveal";
 
 /** deterministic pseudo-random so server and client agree */
 const rnd = (i: number, salt: number) => { const x = Math.sin(i * 127.1 + salt * 311.7) * 43758.5453; return x - Math.floor(x); };
+const clamp = (v: number) => Math.min(1, Math.max(0, v));
+const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-function Logo({ c, size }: { c: (typeof CLIENTS)[number]; size: number }) {
-  return <Image src={`/clients/${c.file}.webp`} alt={c.name} width={205} height={191} style={{ width: size, height: "auto" }} draggable={false} className="select-none" />;
+function Logo({ c, w, h }: { c: (typeof CLIENTS)[number]; w: number; h: number }) {
+  return (
+    <div className="relative" style={{ width: w, height: h }}>
+      <Image src={`/clients/${c.file}.webp`} alt={c.name} fill sizes="200px" className="select-none object-contain" draggable={false} />
+    </div>
+  );
 }
 
 function Count({ to }: { to: number }) {
@@ -26,75 +32,88 @@ function Count({ to }: { to: number }) {
   return <span ref={ref}>0</span>;
 }
 
-type Spec = { sx: number; sy: number; sz: number; rx: number; ry: number; rz: number; depth: number; x: number; y: number; size: number; bob: number; dur: number };
+/** Scroll phases (p = progress of the tall section, 0..1). The stage pins at PIN. */
+const PIN = 0.4;        // before this the logos drift in from below, scattered in 3D
+const BUILD = [0.46, 0.86]; // logos fly into their grid slots, staggered
 
-function Tile({ c, s, e, q, wide }: { c: (typeof CLIENTS)[number]; s: Spec; e: MotionValue<number>; q: MotionValue<number>; wide: number }) {
-  const x = useTransform(e, (v) => lerp(s.sx, 0, v));
-  const y = useTransform([e, q], ([v, p]: number[]) => lerp(s.sy, 0, v) + (0.5 - p) * s.depth * 90);
-  const z = useTransform(e, (v) => lerp(s.sz, s.depth * 40 - 20, v));
-  const rotateX = useTransform(e, (v) => lerp(s.rx, 0, v));
-  const rotateY = useTransform(e, (v) => lerp(s.ry, 0, v));
-  const rotateZ = useTransform(e, (v) => lerp(s.rz, (rnd(s.x + s.y, 4) - 0.5) * 8, v));
-  const opacity = useTransform(e, [0, 0.35], [0, 1]);
+type Layout = { w: number; h: number; cols: number; tile: number; gap: number; x0: number; y0: number };
+
+function Tile({ c, i, L, p, px, py, reduce }: { c: (typeof CLIENTS)[number]; i: number; L: Layout; p: MotionValue<number>; px: MotionValue<number>; py: MotionValue<number>; reduce: boolean }) {
+  const col = i % L.cols, row = Math.floor(i / L.cols);
+  const gx = L.x0 + col * (L.tile + L.gap) + L.tile / 2;
+  const gy = L.y0 + row * (L.tile + L.gap) + L.tile / 2;
+  const depth = 0.3 + rnd(i, 1) * 1.1;
+  // scattered start: anywhere around the stage, at varying depth
+  const sx = (rnd(i, 2) * 1.2 - 0.1) * L.w, sy = (rnd(i, 3) * 1.1 - 0.05) * L.h;
+  const sz = -420 + rnd(i, 4) * 620;
+  const rx = (rnd(i, 5) - 0.5) * 90, ry = (rnd(i, 6) - 0.5) * 110, rz = (rnd(i, 7) - 0.5) * 70;
+  const stagger = ((row + col) / (L.cols + Math.ceil(35 / L.cols))) * 0.45 + rnd(i, 8) * 0.12;
+
+  const e = useTransform(p, (v) => (reduce ? 1 : ease(clamp((v - BUILD[0] - stagger * (BUILD[1] - BUILD[0])) / ((BUILD[1] - BUILD[0]) * 0.55)))));
+  const enter = useTransform(p, (v) => (reduce ? 1 : clamp(v / PIN)));
+  const x = useTransform(e, (v) => lerp(sx, gx, v));
+  const y = useTransform([e, enter, p], ([v, en, pp]: number[]) => lerp(sy, gy, v) + (1 - en) * (L.h * 0.9) * (0.5 + depth * 0.5) + (1 - v) * (0.5 - pp) * depth * 160);
+  const z = useTransform(e, (v) => lerp(sz, 0, v));
+  const rotateX = useTransform(e, (v) => lerp(rx, 0, v));
+  const rotateY = useTransform(e, (v) => lerp(ry, 0, v));
+  const rotateZ = useTransform(e, (v) => lerp(rz, 0, v));
+  const scale = useTransform(e, (v) => lerp(0.75 + depth * 0.3, 1, v));
+  const opacity = useTransform(enter, [0.05, 0.4], [0, 1]);
+
   return (
-    <motion.div style={{ position: "absolute", left: s.x, top: s.y, width: s.size, x, y, z, rotateX, rotateY, rotateZ, opacity, marginLeft: -s.size / 2, marginTop: -s.size * 0.46 }}>
+    <motion.div style={{ position: "absolute", left: 0, top: 0, width: L.tile, height: L.tile, marginLeft: -L.tile / 2, marginTop: -L.tile / 2, x, y, z, rotateX, rotateY, rotateZ, scale, opacity }}>
       <motion.div
-        animate={{ y: [0, -s.bob, 0] }} transition={{ duration: s.dur, repeat: Infinity, ease: "easeInOut", delay: rnd(s.x, 9) * 2 }}
-        whileHover={{ scale: 1.14, zIndex: 5 }}
-        className="flex items-center justify-center rounded-[10px] border border-line bg-paper/80 p-2 backdrop-blur-[2px] transition-colors hover:border-ink sm:p-3"
+        animate={reduce ? undefined : { y: [0, -3 - depth * 3, 0] }}
+        transition={{ duration: 4 + rnd(i, 9) * 3, repeat: Infinity, ease: "easeInOut", delay: rnd(i, 10) * 2 }}
+        whileHover={{ scale: 1.12, zIndex: 5 }}
         title={c.name}
+        className="flex h-full w-full items-center justify-center rounded-[12px] border border-line bg-paper/85 transition-colors hover:border-ink"
       >
-        <Logo c={c} size={s.size - (wide < 640 ? 16 : 24)} />
+        <Logo c={c} w={L.tile * 0.76} h={L.tile * 0.6} />
       </motion.div>
     </motion.div>
   );
 }
 
 function Field() {
-  const reduce = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const [w, setW] = useState(1200);
+  const reduce = !!useReducedMotion();
+  const outer = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ w: 1200, h: 640 });
   const { x: px, y: py } = usePointer();
 
   useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const ro = new ResizeObserver(() => setW(el.clientWidth));
-    ro.observe(el); setW(el.clientWidth);
+    const el = stage.current; if (!el) return;
+    const ro = new ResizeObserver(() => setSize({ w: el.clientWidth, h: el.clientHeight }));
+    ro.observe(el); setSize({ w: el.clientWidth, h: el.clientHeight });
     return () => ro.disconnect();
   }, []);
 
-  const { scrollYProgress: assemble } = useScroll({ target: ref, offset: ["start 95%", "start 25%"] });
-  const { scrollYProgress: drift } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const e = useTransform(assemble, [0, 1], [reduce ? 1 : 0, 1]);
+  const { scrollYProgress: p } = useScroll({ target: outer, offset: ["start end", "end end"] });
 
-  const cols = w < 560 ? 4 : w < 900 ? 5 : 7;
-  const cell = w / cols;
-  const rows = Math.ceil(CLIENTS.length / cols);
-  const height = rows * cell * 0.9 + cell * 0.4;
+  // fit a tidy grid inside the stage: pick the column count, then the largest tile that fits
+  const L = useMemo<Layout>(() => {
+    const { w, h } = size;
+    const cols = w < 520 ? 5 : w < 900 ? 6 : 7;
+    const rows = Math.ceil(CLIENTS.length / cols);
+    const gap = w < 520 ? 6 : 12;
+    const tile = Math.min((w - gap * (cols - 1)) / cols, (h - gap * (rows - 1)) / rows, 170);
+    const gw = cols * tile + (cols - 1) * gap, gh = rows * tile + (rows - 1) * gap;
+    return { w, h, cols, tile, gap, x0: (w - gw) / 2, y0: (h - gh) / 2 };
+  }, [size]);
 
-  const specs = useMemo<Spec[]>(() => CLIENTS.map((_, i) => {
-    const col = i % cols, row = Math.floor(i / cols);
-    const depth = 0.4 + rnd(i, 1) * 1.2;
-    const size = cell * (0.66 + rnd(i, 2) * 0.24);
-    const x = (col + 0.5) * cell + (rnd(i, 3) - 0.5) * cell * 0.22;
-    const y = row * cell * 0.9 + cell * 0.55 + (rnd(i, 4) - 0.5) * cell * 0.22;
-    const dx = x - w / 2, dy = y - height / 2;
-    return {
-      x, y, size, depth,
-      sx: dx * 1.6 + (rnd(i, 5) - 0.5) * w * 0.5, sy: dy * 1.6 + (rnd(i, 6) - 0.2) * 360,
-      sz: -500 - rnd(i, 7) * 500, rx: (rnd(i, 8) - 0.5) * 120, ry: (rnd(i, 9) - 0.5) * 140, rz: (rnd(i, 10) - 0.5) * 100,
-      bob: 4 + rnd(i, 11) * 8, dur: 4 + rnd(i, 12) * 4,
-    };
-  }), [cols, cell, w, height]);
-
-  const rotY = useTransform(px, [-0.5, 0.5], [-7, 7]);
-  const rotX = useTransform(py, [-0.5, 0.5], [5, -5]);
+  const rotY = useTransform(px, [-0.5, 0.5], [-5, 5]);
+  const rotX = useTransform(py, [-0.5, 0.5], [3.5, -3.5]);
 
   return (
-    <div ref={ref} className="relative mx-auto mt-10 w-full max-w-[1400px]" style={{ height, perspective: 1100 }}>
-      <motion.div style={{ rotateX: rotX, rotateY: rotY, transformStyle: "preserve-3d" }} className="absolute inset-0">
-        {CLIENTS.map((c, i) => <Tile key={c.file} c={c} s={specs[i]} e={e} q={drift} wide={w} />)}
-      </motion.div>
+    <div ref={outer} className="relative" style={{ height: reduce ? "auto" : "250svh" }}>
+      <div className="sticky top-[72px] flex h-[calc(100svh-72px)] items-center px-5 py-6 sm:px-10">
+        <div ref={stage} className="relative mx-auto h-full w-full max-w-[1400px]" style={{ perspective: 1100 }}>
+          <motion.div style={{ rotateX: rotX, rotateY: rotY, transformStyle: "preserve-3d" }} className="absolute inset-0">
+            {CLIENTS.map((c, i) => <Tile key={c.file} c={c} i={i} L={L} p={p} px={px} py={py} reduce={reduce} />)}
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -117,13 +136,13 @@ export function Clients() {
       <div className="group relative mt-12 overflow-hidden border-y border-line bg-paper/40 py-6" aria-label="Client logos">
         <div className="marquee flex w-max items-center gap-6 [animation-duration:70s] group-hover:[animation-play-state:paused]">
           {row.map((c, i) => (
-            <div key={c.file + i} className="flex h-[96px] w-[150px] shrink-0 items-center justify-center"><Logo c={c} size={130} /></div>
+            <div key={c.file + i} className="flex h-[96px] w-[150px] shrink-0 items-center justify-center"><Logo c={c} w={130} h={80} /></div>
           ))}
         </div>
       </div>
 
       {/* ...then they scatter into 3D as you scroll */}
-      <div className="px-5 pb-20 sm:px-10 lg:pb-28"><Field /></div>
+      <Field />
     </section>
   );
 }
