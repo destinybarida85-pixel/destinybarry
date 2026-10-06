@@ -12,15 +12,17 @@ import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
-import { FollowLight } from "@/components/FollowLight";
+import { LightOrb } from "@/components/LightOrb";
+import { Clients } from "@/components/Clients";
 
 export default function Home() {
   return (
     <MockupProvider>
-      <FollowLight />
+      <LightOrb />
       <Navbar />
       <main className="relative z-[1]">
         <Hero />
+        <Clients />
         <BeforeAfter />
         <Services />
         <HowItWorks />
