@@ -26,9 +26,9 @@ export function Portfolio() {
   const list = CASES.filter((c) => f === "All" || c.industry === f);
   return (
     <section id="work" data-orb="-0.32,-0.05,0.75" className="border-t border-line">
-      <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
+      <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-10 lg:py-28">
         <SectionHead eyebrow="Portfolio & case studies" title="Websites that earn their keep." />
-        <Reveal className="mt-10 flex flex-wrap gap-2" delay={0.1}>
+        <Reveal className="mt-10 flex flex-wrap justify-center gap-2" delay={0.1}>
           {filters.map((x) => (
             <button key={x} onClick={() => { setF(x); setOpen(null); }} aria-pressed={f === x}
               className={`rounded-full border px-5 py-2 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${f === x ? "border-ink bg-ink text-parchment" : "border-line hover:border-ink"}`}>{x}</button>

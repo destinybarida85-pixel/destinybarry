@@ -8,7 +8,7 @@ body { background: #fbfaf9; color: #343433; overflow-x: clip; -webkit-font-smoot
 
 @layer components {
   .eyebrow { @apply font-sans text-[11px] font-semibold uppercase tracking-widest2 text-muted; }
-  .display { @apply font-display font-medium uppercase leading-[0.9] tracking-[-0.03em]; }
+  .display { @apply font-display font-medium leading-[1.09] tracking-[-0.031em]; }
   .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-sans text-[14px] font-semibold tracking-[-0.009em] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
   .btn-dark { @apply bg-ink text-parchment hover:bg-[#343433]; }
   .btn-line { @apply bg-sand text-ink hover:bg-stone; }

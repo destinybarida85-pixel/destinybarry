@@ -10,7 +10,7 @@ export function About() {
   const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
   return (
     <section id="about" data-orb="0.05,0.2,0.85" className="border-t border-line">
-      <div ref={ref} className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 sm:px-10 lg:grid-cols-[420px_1fr] lg:gap-20 lg:py-28">
+      <div ref={ref} className="mx-auto grid max-w-[1200px] items-center gap-12 px-5 py-20 sm:px-10 lg:grid-cols-[420px_1fr] lg:gap-20 lg:py-28">
         <Reveal>
           <div className="relative mx-auto w-full max-w-[420px]">
             <div className="absolute -right-4 -top-4 h-full w-full rounded-[10px] border border-ink" />
@@ -20,7 +20,7 @@ export function About() {
           </div>
         </Reveal>
         <div>
-          <SectionHead eyebrow="About" title="A web designer who cares whether the phone rings." />
+          <SectionHead align="left" eyebrow="About" title="A web designer who cares whether the phone rings." />
           <Reveal delay={0.15}>
             <div className="mt-8 max-w-[640px] space-y-5 text-[18px] leading-[1.65] text-[#474645]">
               <p>I&apos;m Destiny Barry. I build websites and AI systems for local businesses across the US and Canada, with one measure of success: does it bring you customers?</p>

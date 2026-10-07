@@ -4,6 +4,13 @@ import { motion } from "framer-motion";
 import { ENGINE } from "@/lib/content";
 import { SectionHead, Reveal } from "./Reveal";
 
+const DOT = ["#0090FF", "#9F4FFF", "#00C978", "#FF58AE", "#FFBB26", "#FF3E00", "#00B2FF"];
+const FEED = [
+  { who: "Mike R.", what: "Roof repair quote", tag: "New", bg: "#64C6FF" },
+  { who: "Anna L.", what: "Booked Thu 10:30", tag: "Booked", bg: "#00CA48" },
+  { who: "Dev P.", what: "Estimate follow-up", tag: "Pending", bg: "#FFBB26" },
+];
+
 export function Engine() {
   const [sel, setSel] = useState(0);
   const [auto, setAuto] = useState(true);
@@ -17,48 +24,57 @@ export function Engine() {
   const cur = ENGINE[sel];
   return (
     <section id="engine" data-orb="-0.3,-0.1,0.75" className="border-t border-line">
-      <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
-        <SectionHead eyebrow="The AI client engine" title="One connected system, from first click to repeat customer." />
+      <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-10 lg:py-28">
+        <SectionHead eyebrow="The AI client engine" title="One connected system, from first click to repeat customer." sub="Tap any step to see what it does for your business." />
 
-        <Reveal className="mt-14" delay={0.1}>
-          <div className="relative">
-            {/* connector line */}
-            <div className="absolute left-[18px] top-0 h-full w-px bg-line lg:left-0 lg:top-[26px] lg:h-px lg:w-full" />
-            <ol className="relative grid gap-3 lg:grid-cols-7 lg:gap-2">
+        <div className="mt-14 grid gap-3 lg:grid-cols-[360px_1fr]">
+          {/* dark action card: the one dark surface on the page */}
+          <Reveal>
+            <div role="tablist" aria-label="Client engine steps" className="rounded-[10px] rounded-l-[24px] bg-black p-1 shadow-[0_0_24px_rgba(0,0,0,0.15)]">
               {ENGINE.map((n, i) => {
-                const on = i === sel; const done = i < sel;
+                const on = i === sel;
                 return (
-                  <li key={n.id}>
-                    <button
-                      onClick={() => { setAuto(false); setSel(i); }}
-                      aria-pressed={on}
-                      className="group flex w-full items-center gap-4 text-left lg:flex-col lg:items-start lg:gap-5"
-                    >
-                      <span className="relative flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full border border-ink bg-parchment font-sans text-[11px] font-bold lg:h-[52px] lg:w-[52px]">
-                        <motion.span className="absolute inset-0 rounded-full bg-ink" initial={false} animate={{ scale: on || done ? 1 : 0 }} transition={{ duration: 0.35 }} />
-                        <span className={`relative transition-colors ${on || done ? "text-parchment" : ""}`}>{i + 1}</span>
-                        {on && <motion.span layoutId="pulse" className="absolute -inset-2 rounded-full border border-ink/30" animate={{ scale: [1, 1.25, 1], opacity: [0.8, 0, 0.8] }} transition={{ repeat: Infinity, duration: 2 }} />}
-                      </span>
-                      <span>
-                        <span className={`display block text-[20px] transition-opacity lg:text-[22px] ${on ? "opacity-100" : "opacity-60 group-hover:opacity-100"}`}>{n.label}</span>
-                        <span className="mt-1 hidden font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-muted lg:block">{n.metric}</span>
-                      </span>
-                    </button>
-                  </li>
+                  <button key={n.id} role="tab" aria-selected={on} onClick={() => { setAuto(false); setSel(i); }}
+                    className={`flex w-full items-center gap-4 rounded-[8px] rounded-l-[22px] px-4 py-3 text-left transition-colors ${on ? "bg-white/10" : "hover:bg-white/5"}`}>
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-sans text-[13px] font-semibold" style={{ background: DOT[i], color: i === 4 ? "#121212" : "#fff" }}>{i + 1}</span>
+                    <span>
+                      <span className="block font-sans text-[16px] font-semibold leading-tight text-white">{n.label}</span>
+                      <span className="block font-sans text-[13px] text-white/60">{n.metric}</span>
+                    </span>
+                  </button>
                 );
               })}
-            </ol>
-          </div>
-        </Reveal>
+            </div>
+          </Reveal>
 
-        <div className="mt-12 grid gap-8 border-t border-ink pt-8 lg:grid-cols-[1fr_1.2fr]">
-          <div className="eyebrow">Step {sel + 1} of {ENGINE.length} · {cur.metric}</div>
-          <motion.p key={cur.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="display min-h-[96px] text-[26px] sm:text-[34px] !normal-case !leading-[1.1]" aria-live="polite">
-            {cur.detail}
-          </motion.p>
-        </div>
-        <div className="mt-8 flex items-center gap-4 font-sans text-[11px] uppercase tracking-[0.14em] text-muted">
-          <button onClick={() => setAuto((a) => !a)} className="link-u !text-[11px]">{auto ? "Pause" : "Play"} animation</button>
+          <div className="grid gap-3">
+            <Reveal delay={0.08}>
+              <div className="rounded-[10px] border border-line bg-paper p-8">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="eyebrow">Step {sel + 1} of {ENGINE.length}</span>
+                  <span className="rounded-full px-3 py-1.5 font-sans text-[12px] font-semibold text-ink" style={{ background: DOT[sel], color: sel === 4 ? "#121212" : "#fff" }}>{cur.metric}</span>
+                </div>
+                <motion.div key={cur.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} aria-live="polite">
+                  <h3 className="display mt-6 text-[34px]">{cur.label}</h3>
+                  <p className="mt-4 max-w-[520px] text-[17px] leading-[1.5] text-body">{cur.detail}</p>
+                </motion.div>
+                <button onClick={() => setAuto((a) => !a)} className="link-u mt-6">{auto ? "Pause" : "Play"} animation</button>
+              </div>
+            </Reveal>
+            <Reveal delay={0.14}>
+              <div className="rounded-[12px] bg-parchment p-[14px] pl-6 ring-1 ring-line">
+                <div className="eyebrow !normal-case">Live lead feed</div>
+                <div className="mt-3 divide-y divide-line">
+                  {FEED.map((f) => (
+                    <div key={f.who} className="flex items-center justify-between gap-3 py-3 font-sans text-[14px]">
+                      <span><strong className="font-semibold text-ink">{f.who}</strong> <span className="text-body">· {f.what}</span></span>
+                      <span className="rounded-full px-3 py-1 text-[12px] font-semibold text-ink" style={{ background: f.bg }}>{f.tag}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>

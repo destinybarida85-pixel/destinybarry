@@ -36,7 +36,7 @@ export function Navbar() {
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${stuck || open ? "border-b border-line bg-parchment/85 backdrop-blur-md" : "bg-transparent"}`}>
-      <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-5 sm:px-10">
+      <div className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between px-5 sm:px-10">
         <a href="#top" className="font-sans text-[15px] font-semibold uppercase tracking-[0.18em]" onClick={() => setOpen(false)}>Destiny Barry</a>
         <nav className="hidden items-center gap-7 xl:flex" aria-label="Primary">
           {NAV.map((n) => (

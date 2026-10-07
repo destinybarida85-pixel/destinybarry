@@ -38,9 +38,9 @@ export function BeforeAfter() {
 
   return (
     <section id="work-preview" data-orb="0.33,-0.2,0.7" className="border-t border-line">
-      <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-10 lg:py-28">
+      <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-10 lg:py-28">
         <SectionHead eyebrow="Before / After" title="Don't just redesign the website. Redesign the customer journey." />
-        <Reveal className="mt-10 flex flex-wrap gap-2" delay={0.1}>
+        <Reveal className="mt-10 flex flex-wrap justify-center gap-2" delay={0.1}>
           {SAMPLES.map((x, i) => (
             <button key={x.id} onClick={() => { setIdx(i); setPos(50); }} aria-pressed={i === idx}
               className={`rounded-full border px-5 py-2 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${i === idx ? "border-ink bg-ink text-parchment" : "border-line hover:border-ink"}`}>{x.tab}</button>

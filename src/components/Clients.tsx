@@ -108,7 +108,7 @@ function Field() {
   return (
     <div ref={outer} className="relative" style={{ height: reduce ? "auto" : "250svh" }}>
       <div className="sticky top-[72px] flex h-[calc(100svh-72px)] items-center px-5 py-6 sm:px-10">
-        <div ref={stage} className="relative mx-auto h-full w-full max-w-[1400px]" style={{ perspective: 1100 }}>
+        <div ref={stage} className="relative mx-auto h-full w-full max-w-[1200px]" style={{ perspective: 1100 }}>
           <motion.div style={{ rotateX: rotX, rotateY: rotY, transformStyle: "preserve-3d" }} className="absolute inset-0">
             {CLIENTS.map((c, i) => <Tile key={c.file} c={c} i={i} L={L} p={p} px={px} py={py} reduce={reduce} />)}
           </motion.div>
@@ -122,13 +122,13 @@ export function Clients() {
   const row = [...CLIENTS, ...CLIENTS];
   return (
     <section id="clients" data-orb="0.3,-0.12,0.75" className="relative z-[1] border-t border-line">
-      <div className="mx-auto max-w-[1400px] px-5 pt-20 sm:px-10 lg:pt-28">
-        <Reveal><div className="eyebrow">Trusted by</div></Reveal>
+      <div className="mx-auto max-w-[1200px] px-5 pt-20 sm:px-10 lg:pt-28">
+        <Reveal><div className="eyebrow text-center">Trusted by</div></Reveal>
         <Reveal delay={0.08}>
-          <h2 className="display mt-6 text-[40px] sm:text-[56px] lg:text-[72px]"><Count to={35} />+ brands</h2>
+          <h2 className="display mt-5 text-center text-[34px] sm:text-[44px]"><Count to={35} />+ brands</h2>
         </Reveal>
         <Reveal delay={0.16}>
-          <p className="mt-6 max-w-[620px] text-[18px] italic leading-[1.55] text-[#474645]">Helping service businesses build better digital experiences and turn more visitors into customers.</p>
+          <p className="mx-auto mt-5 max-w-[560px] text-center text-[17px] leading-[1.5] text-body">Helping service businesses build better digital experiences and turn more visitors into customers.</p>
         </Reveal>
       </div>
 
