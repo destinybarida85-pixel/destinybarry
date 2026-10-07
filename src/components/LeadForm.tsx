@@ -58,7 +58,7 @@ export function LeadForm({ variant, plan, onDone }: { variant: Variant; plan?: s
 
   if (status === "done") {
     return (
-      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="border border-ink bg-paper p-7" role="status">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="rounded-[10px] border border-ink bg-paper p-7" role="status">
         <div className="font-sans text-[11px] font-semibold uppercase tracking-widest2">Received ✓</div>
         <p className="display mt-3 text-[26px]">Thank you. We&apos;ll be in touch within one business day.</p>
         <button onClick={() => setStatus("idle")} className="link-u mt-5">Send another →</button>

@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 html { scroll-behavior: smooth; scroll-padding-top: 72px; overflow-x: clip; }
-body { background: #e5e4e0; color: #1d1d1d; overflow-x: clip; -webkit-font-smoothing: antialiased; }
-::selection { background: #1d1d1d; color: #e5e4e0; }
+body { background: #fbfaf9; color: #343433; overflow-x: clip; -webkit-font-smoothing: antialiased; letter-spacing: -0.012em; }
+::selection { background: #121212; color: #fbfaf9; }
 
 @layer components {
   .eyebrow { @apply font-sans text-[11px] font-semibold uppercase tracking-widest2 text-muted; }
-  .display { @apply font-sans font-medium uppercase leading-[0.9] tracking-[-0.015em]; }
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-[10px] px-6 py-4 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
-  .btn-dark { @apply bg-ink text-parchment hover:bg-[#3a3a37]; }
-  .btn-line { @apply border border-ink text-ink hover:bg-ink hover:text-parchment; }
-  .link-u { @apply border-b border-ink pb-[3px] font-sans text-[13px] font-semibold uppercase tracking-[0.08em] transition-opacity hover:opacity-60; }
-  .field { @apply w-full rounded-[10px] border border-line bg-paper px-4 py-3 font-serif text-[16px] text-ink outline-none transition-colors placeholder:text-[#9a9994] focus:border-ink; }
+  .display { @apply font-display font-medium uppercase leading-[0.9] tracking-[-0.03em]; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-sans text-[14px] font-semibold tracking-[-0.009em] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
+  .btn-dark { @apply bg-ink text-parchment hover:bg-[#343433]; }
+  .btn-line { @apply bg-sand text-ink hover:bg-stone; }
+  .link-u { @apply font-sans text-[14px] font-medium tracking-[-0.009em] text-ember underline underline-offset-4 transition-opacity hover:opacity-70; }
+  .field { @apply w-full rounded-[10px] border border-line bg-paper px-4 py-3 font-sans text-[16px] text-ink outline-none transition-colors placeholder:text-[#9a9994] focus:border-ink; }
 }
 
 @keyframes floatlbl { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-7px) } }

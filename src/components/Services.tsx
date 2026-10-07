@@ -35,7 +35,7 @@ export function Services() {
                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden"
                       >
                         <div className="grid gap-8 pb-10 pl-12 sm:pl-24 md:grid-cols-2">
-                          <p className="max-w-[460px] text-[17px] leading-[1.6] text-[#3a3a37]">{s.blurb}</p>
+                          <p className="max-w-[460px] text-[17px] leading-[1.6] text-[#474645]">{s.blurb}</p>
                           <div>
                             <ul className="space-y-2 font-sans text-[14px]">
                               {s.points.map((p) => <li key={p} className="flex gap-3 border-b border-line pb-2"><span>→</span>{p}</li>)}

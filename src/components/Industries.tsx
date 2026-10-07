@@ -24,12 +24,12 @@ export function Industries() {
               ))}
             </div>
           </Reveal>
-          <div className="min-h-[340px] border border-line bg-paper/60 p-6 sm:p-10">
+          <div className="min-h-[340px] rounded-[10px] border border-line bg-paper p-6 sm:p-10">
             <AnimatePresence mode="wait">
               <motion.div key={cur.id} role="tabpanel" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}>
                 <div className="eyebrow">{cur.examples}</div>
                 <h3 className="display mt-5 text-[30px] sm:text-[42px]">{cur.name}</h3>
-                <p className="mt-5 max-w-[560px] text-[18px] leading-[1.55] text-[#3a3a37]">{cur.win}</p>
+                <p className="mt-5 max-w-[560px] text-[18px] leading-[1.55] text-[#474645]">{cur.win}</p>
                 <ol className="mt-8 grid gap-4 sm:grid-cols-3">
                   {cur.flow.map((f, k) => (
                     <li key={f} className="border-t border-ink pt-3 font-sans text-[13px]"><span className="mb-1 block text-[11px] text-muted">0{k + 1}</span>{f}</li>

@@ -40,20 +40,20 @@ export function Portfolio() {
               const isOpen = open === c.id;
               return (
                 <motion.article layout key={c.id} initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }} transition={{ duration: 0.35 }}
-                  className="group flex flex-col border border-line bg-paper/60 transition-colors hover:border-ink">
+                  className="group flex flex-col overflow-hidden rounded-[10px] border border-line bg-paper transition-colors hover:border-ink">
                   <div className={`relative h-[220px] overflow-hidden border-b border-line bg-gradient-to-br ${c.tone}`}>
-                    <motion.div whileHover={{ y: -8, rotate: -1 }} className="absolute inset-x-8 top-8 border border-line bg-paper">
-                      <div className="flex items-center gap-1.5 border-b border-[#e3e2df] px-3 py-2">
-                        {[0, 1, 2].map((d) => <span key={d} className="h-2 w-2 rounded-full bg-[#d9d8d4]" />)}
-                        <span className="ml-2 font-sans text-[9px] text-[#8a8984]">{c.client.toLowerCase().replace(/[^a-z]/g, "")}.com</span>
+                    <motion.div whileHover={{ y: -8, rotate: -1 }} className="absolute inset-x-8 top-8 rounded-[8px] border border-line bg-paper">
+                      <div className="flex items-center gap-1.5 border-b border-[#f2f0ed] px-3 py-2">
+                        {[0, 1, 2].map((d) => <span key={d} className="h-2 w-2 rounded-full bg-[#e5e1da]" />)}
+                        <span className="ml-2 font-sans text-[9px] text-[#7e7e7d]">{c.client.toLowerCase().replace(/[^a-z]/g, "")}.com</span>
                       </div>
-                      <div className="p-4"><div className="display text-[20px]">{c.client}</div><div className="mt-3 h-1.5 w-2/3 bg-[#e3e2df]" /><div className="mt-2 h-1.5 w-1/2 bg-[#e3e2df]" /><div className="mt-4 inline-block rounded-[6px] bg-ink px-3 py-1.5 font-sans text-[9px] font-semibold uppercase text-parchment">Book now</div></div>
+                      <div className="p-4"><div className="display text-[20px]">{c.client}</div><div className="mt-3 h-1.5 w-2/3 bg-[#f2f0ed]" /><div className="mt-2 h-1.5 w-1/2 bg-[#f2f0ed]" /><div className="mt-4 inline-block rounded-[6px] bg-ink px-3 py-1.5 font-sans text-[9px] font-semibold uppercase text-parchment">Book now</div></div>
                     </motion.div>
                   </div>
                   <div className="flex flex-1 flex-col p-6 sm:p-8">
                     <div className="eyebrow">{c.industry} · {c.region}</div>
                     <h3 className="display mt-3 text-[28px]">{c.client}</h3>
-                    <p className="mt-3 text-[16px] leading-[1.55] text-[#3a3a37]">{c.summary}</p>
+                    <p className="mt-3 text-[16px] leading-[1.55] text-[#474645]">{c.summary}</p>
                     <div className="mt-5 flex flex-wrap gap-2">{c.tags.map((t) => <span key={t} className="rounded-full border border-line px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.1em]">{t}</span>)}</div>
                     <AnimatePresence initial={false}>
                       {isOpen && (

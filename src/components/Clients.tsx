@@ -128,7 +128,7 @@ export function Clients() {
           <h2 className="display mt-6 text-[40px] sm:text-[56px] lg:text-[72px]"><Count to={35} />+ brands</h2>
         </Reveal>
         <Reveal delay={0.16}>
-          <p className="mt-6 max-w-[620px] text-[18px] italic leading-[1.55] text-[#3a3a37]">Helping service businesses build better digital experiences and turn more visitors into customers.</p>
+          <p className="mt-6 max-w-[620px] text-[18px] italic leading-[1.55] text-[#474645]">Helping service businesses build better digital experiences and turn more visitors into customers.</p>
         </Reveal>
       </div>
 

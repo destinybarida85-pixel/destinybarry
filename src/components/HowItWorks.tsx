@@ -22,7 +22,7 @@ export function HowItWorks() {
               <div className="relative">
                 <div className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full border border-ink bg-parchment font-sans text-[11px] font-bold">{s.n}</div>
                 <h3 className="display mt-6 text-[26px]">{s.title}</h3>
-                <p className="mt-4 text-[16px] leading-[1.6] text-[#3a3a37]">{s.text}</p>
+                <p className="mt-4 text-[16px] leading-[1.6] text-[#474645]">{s.text}</p>
               </div>
             </Reveal>
           ))}

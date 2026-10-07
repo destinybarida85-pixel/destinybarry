@@ -44,7 +44,7 @@ export function MockupProvider({ children }: { children: React.ReactNode }) {
                 </div>
                 <button onClick={() => setOpen(false)} aria-label="Close" className="-mr-2 -mt-2 p-2 font-sans text-2xl leading-none transition-opacity hover:opacity-50">×</button>
               </div>
-              <p className="mt-4 text-[16px] leading-relaxed text-[#3a3a37]">Tell us about your business and we&apos;ll send a custom homepage design within a few business days.</p>
+              <p className="mt-4 text-[16px] leading-relaxed text-[#474645]">Tell us about your business and we&apos;ll send a custom homepage design within a few business days.</p>
               <div className="mt-6"><LeadForm variant="mockup" plan={plan} onDone={() => {}} /></div>
             </motion.div>
           </motion.div>
