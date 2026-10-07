@@ -14,7 +14,7 @@ export function Packages() {
             const feat = "featured" in p && p.featured;
             return (
               <Reveal key={p.id} delay={i * 0.1}>
-                <div className={`flex h-full flex-col border p-7 transition-transform duration-300 hover:-translate-y-1 sm:p-9 ${feat ? "border-ink bg-ink text-parchment" : "border-line bg-paper/60"}`}>
+                <div className={`flex h-full flex-col rounded-[10px] border p-7 transition-transform duration-300 hover:-translate-y-1 sm:p-9 ${feat ? "border-ink bg-ink text-parchment" : "border-line bg-paper"}`}>
                   <div className="flex items-center justify-between">
                     <div className={`eyebrow ${feat ? "!text-parchment/70" : ""}`}>{p.name}</div>
                     {feat && <span className="rounded-full border border-parchment/40 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.12em]">Most popular</span>}

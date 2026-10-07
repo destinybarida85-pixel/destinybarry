@@ -50,7 +50,7 @@ export function BeforeAfter() {
         <Reveal delay={0.15} className="mt-8">
           <div
             ref={box}
-            className="relative h-[460px] touch-pan-y select-none overflow-hidden border border-line bg-paper sm:h-[500px]"
+            className="relative h-[460px] touch-pan-y select-none overflow-hidden rounded-[10px] border border-line bg-paper sm:h-[500px]"
             onPointerDown={(e) => { dragging.current = true; (e.target as HTMLElement).setPointerCapture?.(e.pointerId); setFromX(e.clientX); }}
             onPointerMove={(e) => dragging.current && setFromX(e.clientX)}
             onPointerUp={() => (dragging.current = false)}
@@ -59,9 +59,9 @@ export function BeforeAfter() {
             {/* AFTER (base layer) */}
             <AnimatePresence mode="wait">
               <motion.div key={s.id + "a"} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-paper">
-                <div className="flex items-center justify-between border-b border-[#e3e2df] px-5 py-4">
+                <div className="flex items-center justify-between border-b border-[#f2f0ed] px-5 py-4">
                   <span className="font-sans text-[13px] font-bold uppercase tracking-[0.08em]">{s.name}</span>
-                  <div className="flex items-center gap-4 font-sans text-[10px] uppercase tracking-[0.06em] text-[#55544f]">
+                  <div className="flex items-center gap-4 font-sans text-[10px] uppercase tracking-[0.06em] text-[#474645]">
                     <span className="hidden sm:inline">Services</span><span className="hidden sm:inline">Reviews</span>
                     <span className="rounded-[8px] bg-ink px-3 py-1.5 text-parchment">{s.cta}</span>
                   </div>
@@ -69,12 +69,12 @@ export function BeforeAfter() {
                 <div className="grid gap-6 p-5 sm:p-8 md:grid-cols-[1fr_200px]">
                   <div>
                     <div className="display text-[28px] sm:text-[40px]">{s.headline}</div>
-                    <p className="mt-4 max-w-[420px] text-[14px] leading-[1.55] text-[#55544f]">{s.sub}</p>
+                    <p className="mt-4 max-w-[420px] text-[14px] leading-[1.55] text-[#474645]">{s.sub}</p>
                     <div className="mt-5 flex gap-2 font-sans text-[11px] font-semibold"><span className="rounded-[10px] bg-ink px-4 py-2.5 text-parchment">{s.cta}</span><span className="rounded-[10px] border border-line px-4 py-2.5">Call now</span></div>
                   </div>
                   <div className="hidden h-[170px] rounded-full bg-gradient-to-br from-[#facb0e]/60 via-[#f06ba8]/50 to-[#78bae6]/60 md:block" />
                 </div>
-                <div className="absolute bottom-4 right-4 border border-line bg-paper px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[0.1em]">● AI assistant online</div>
+                <div className="absolute bottom-4 right-4 rounded-full border border-line bg-paper px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[0.1em]">● AI assistant online</div>
               </motion.div>
             </AnimatePresence>
 

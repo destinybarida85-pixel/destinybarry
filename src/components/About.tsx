@@ -13,8 +13,8 @@ export function About() {
       <div ref={ref} className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 sm:px-10 lg:grid-cols-[420px_1fr] lg:gap-20 lg:py-28">
         <Reveal>
           <div className="relative mx-auto w-full max-w-[420px]">
-            <div className="absolute -right-4 -top-4 h-full w-full border border-ink" />
-            <motion.div style={{ y }} className="relative aspect-[4/5] overflow-hidden border border-line bg-paper">
+            <div className="absolute -right-4 -top-4 h-full w-full rounded-[10px] border border-ink" />
+            <motion.div style={{ y }} className="relative aspect-[4/5] overflow-hidden rounded-[10px] border border-line bg-paper">
               <Image src="/images/founder.jpg" alt="Destiny Barry, founder" fill sizes="(max-width: 1024px) 90vw, 420px" className="object-cover grayscale" />
             </motion.div>
           </div>
@@ -22,7 +22,7 @@ export function About() {
         <div>
           <SectionHead eyebrow="About" title="A web designer who cares whether the phone rings." />
           <Reveal delay={0.15}>
-            <div className="mt-8 max-w-[640px] space-y-5 text-[18px] leading-[1.65] text-[#3a3a37]">
+            <div className="mt-8 max-w-[640px] space-y-5 text-[18px] leading-[1.65] text-[#474645]">
               <p>I&apos;m Destiny Barry. I build websites and AI systems for local businesses across the US and Canada, with one measure of success: does it bring you customers?</p>
               <p>Most small business sites look fine but don&apos;t convert. They load slowly, hide the next step and go silent after a visitor leaves. I fix the whole journey, from the first click to the booked appointment and the follow-up after.</p>
               <p className="italic text-ink">Direct communication, clear scope and work you can see before you commit. That&apos;s why every project starts with a free mockup.</p>

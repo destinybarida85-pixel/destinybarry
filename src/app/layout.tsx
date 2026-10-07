@@ -9,12 +9,10 @@ const montserrat = localFont({
   weight: "100 900",
   display: "swap",
 });
-const lora = localFont({
-  src: [
-    { path: "../../public/fonts/Lora-VariableFont_wght.ttf", style: "normal", weight: "400 700" },
-    { path: "../../public/fonts/Lora-Italic-VariableFont_wght.ttf", style: "italic", weight: "400 700" },
-  ],
-  variable: "--font-lora",
+const inter = localFont({
+  src: "../../public/fonts/Inter-Variable.woff2",
+  variable: "--font-inter",
+  weight: "100 900",
   display: "swap",
 });
 
@@ -33,7 +31,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: "Destiny Barry", description: "Your website should bring you customers." },
 };
 
-export const viewport: Viewport = { themeColor: "#E5E4E0", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#FBFAF9", width: "device-width", initialScale: 1 };
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -46,7 +44,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${lora.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
       <body className="font-serif">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {children}

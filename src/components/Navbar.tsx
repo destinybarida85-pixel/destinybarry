@@ -37,17 +37,17 @@ export function Navbar() {
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${stuck || open ? "border-b border-line bg-parchment/85 backdrop-blur-md" : "bg-transparent"}`}>
       <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-5 sm:px-10">
-        <a href="#top" className="font-sans text-[14px] font-bold uppercase tracking-[0.2em]" onClick={() => setOpen(false)}>Destiny Barry</a>
+        <a href="#top" className="font-sans text-[15px] font-semibold uppercase tracking-[0.18em]" onClick={() => setOpen(false)}>Destiny Barry</a>
         <nav className="hidden items-center gap-7 xl:flex" aria-label="Primary">
           {NAV.map((n) => (
-            <a key={n.href} href={n.href} className="relative font-sans text-[11px] font-semibold uppercase tracking-[0.16em]">
+            <a key={n.href} href={n.href} className="relative font-sans text-[14px] font-medium tracking-[-0.009em]">
               {n.label}
               {active === n.href.slice(1) && <motion.span layoutId="nav-dot" className="absolute -bottom-2 left-0 right-0 h-px bg-ink" />}
             </a>
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          <button onClick={() => openMockup()} className="btn btn-dark hidden !px-5 !py-3 !text-[11px] sm:inline-flex">Get a free mockup →</button>
+          <button onClick={() => openMockup()} className="btn btn-dark hidden !px-4 !py-2.5 !text-[13px] sm:inline-flex">Get a free mockup →</button>
           <button
             className="flex h-11 w-11 flex-col items-center justify-center gap-[6px] xl:hidden"
             aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}

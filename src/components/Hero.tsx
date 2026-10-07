@@ -29,7 +29,7 @@ function Float({ className, depth, rotate = 0, delay = 0, px, py, children }: {
 }
 
 const Label = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex items-center gap-2 border border-line bg-paper px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] sm:text-[11px]">
+  <div className="flex items-center gap-2 rounded-full border border-line bg-paper px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[0.1em] sm:text-[11px]">
     <span className="h-1.5 w-1.5 rounded-full bg-ink" />{children}
   </div>
 );
@@ -43,29 +43,29 @@ export function Hero() {
       {/* floating website mockups, scattered around the light */}
       <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden>
         <Float className="left-[3%] top-[22%] w-[230px]" depth={1.1} rotate={-4} px={px} py={py}>
-          <div className="border border-line bg-paper">
-            <div className="flex items-center gap-1 border-b border-[#e3e2df] px-2.5 py-2">{[0, 1, 2].map((d) => <span key={d} className="h-[7px] w-[7px] rounded-full bg-[#d9d8d4]" />)}<span className="ml-1.5 flex-1 rounded bg-[#f1f0ed] px-2 py-0.5 font-sans text-[8px] text-[#8a8984]">summitroofing.com</span></div>
-            <div className="p-3.5"><div className="display text-[17px] leading-[0.95]">Roofing done right.</div><div className="mt-2 h-1 w-3/4 bg-[#e3e2df]" /><div className="mt-1.5 h-1 w-1/2 bg-[#e3e2df]" /><div className="mt-3 inline-block rounded-[6px] bg-ink px-2.5 py-1.5 font-sans text-[8px] font-semibold uppercase text-parchment">Get free estimate</div></div>
+          <div className="rounded-[10px] border border-line bg-paper">
+            <div className="flex items-center gap-1 border-b border-[#f2f0ed] px-2.5 py-2">{[0, 1, 2].map((d) => <span key={d} className="h-[7px] w-[7px] rounded-full bg-[#e5e1da]" />)}<span className="ml-1.5 flex-1 rounded bg-[#f2f0ed] px-2 py-0.5 font-sans text-[8px] text-[#7e7e7d]">summitroofing.com</span></div>
+            <div className="p-3.5"><div className="display text-[17px] leading-[0.95]">Roofing done right.</div><div className="mt-2 h-1 w-3/4 bg-[#f2f0ed]" /><div className="mt-1.5 h-1 w-1/2 bg-[#f2f0ed]" /><div className="mt-3 inline-block rounded-[6px] bg-ink px-2.5 py-1.5 font-sans text-[8px] font-semibold uppercase text-parchment">Get free estimate</div></div>
           </div>
         </Float>
         <Float className="right-[3%] top-[20%] w-[210px]" depth={0.8} rotate={3} delay={0.15} px={px} py={py}>
-          <div className="border border-line bg-paper p-3.5">
+          <div className="rounded-[10px] border border-line bg-paper p-3.5">
             <div className="font-sans text-[9px] font-semibold uppercase tracking-[0.14em] text-muted">Lead inbox</div>
             {["Mike R. · Roof quote", "Anna L. · Booking", "Dev P. · Estimate"].map((l, i) => <div key={l} className="mt-2.5 flex justify-between border-t border-line pt-2.5 font-sans text-[10px]"><span>{l}</span><span className="text-muted">{["now", "2m", "9m"][i]}</span></div>)}
           </div>
         </Float>
         <Float className="bottom-[16%] left-[7%] w-[210px]" depth={1.4} rotate={2} delay={0.3} px={px} py={py}>
-          <div className="border border-line bg-paper p-3.5">
-            <div className="flex items-center gap-2 font-sans text-[9px] font-semibold uppercase tracking-[0.12em]"><span className="h-1.5 w-1.5 rounded-full bg-[#2f9e5b]" />AI assistant</div>
-            <div className="mt-2.5 rounded-[8px] bg-[#f1f0ed] p-2.5 font-sans text-[10px] leading-snug">Hi! Want a free roof inspection this week?</div>
+          <div className="rounded-[10px] border border-line bg-paper p-3.5">
+            <div className="flex items-center gap-2 font-sans text-[9px] font-semibold uppercase tracking-[0.12em]"><span className="h-1.5 w-1.5 rounded-full bg-[#00ca48]" />AI assistant</div>
+            <div className="mt-2.5 rounded-[8px] bg-[#f2f0ed] p-2.5 font-sans text-[10px] leading-snug">Hi! Want a free roof inspection this week?</div>
             <div className="mt-2 ml-auto w-fit rounded-[8px] bg-ink px-2.5 py-2 font-sans text-[10px] text-parchment">Yes, Thursday works</div>
           </div>
         </Float>
         <Float className="bottom-[14%] right-[6%] w-[190px]" depth={1.2} rotate={-3} delay={0.45} px={px} py={py}>
-          <div className="border border-line bg-paper p-3.5">
+          <div className="rounded-[10px] border border-line bg-paper p-3.5">
             <div className="font-sans text-[9px] font-semibold uppercase tracking-[0.14em] text-muted">Booked</div>
             <div className="display mt-1 text-[22px]">Thu · 10:30</div>
-            <div className="mt-2 grid grid-cols-7 gap-1">{Array.from({ length: 14 }).map((_, i) => <span key={i} className={`h-3 rounded-[3px] ${i === 10 ? "bg-ink" : "bg-[#e3e2df]"}`} />)}</div>
+            <div className="mt-2 grid grid-cols-7 gap-1">{Array.from({ length: 14 }).map((_, i) => <span key={i} className={`h-3 rounded-[3px] ${i === 10 ? "bg-ink" : "bg-[#f2f0ed]"}`} />)}</div>
           </div>
         </Float>
         <Float className="left-[21%] top-[12%]" depth={0.6} delay={0.2} px={px} py={py}><Label>New lead</Label></Float>
@@ -89,7 +89,7 @@ export function Hero() {
             </span>
           ))}
         </h1>
-        <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="mt-8 max-w-[560px] text-[17px] leading-[1.6] text-[#2b2b29] sm:text-[18px]">
+        <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="mt-8 max-w-[560px] text-[17px] leading-[1.6] text-[#474645] sm:text-[18px]">
           We design high-converting websites and AI-powered systems that help local businesses capture more leads, book more appointments and follow up automatically.
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95 }} className="mt-9 flex flex-wrap items-center justify-center gap-x-7 gap-y-5">
